@@ -4,7 +4,11 @@ const BookSchema=new mongoose.Schema({
     title: String,
     author: String,
     genre: String,
-    condition: String,
+    condition: {
+        type: String,
+        enum: ['new', 'good', 'fair', 'poor'],
+        required: true
+      },
     isAvailable: Boolean,
     imageUrl: String,
     location: {

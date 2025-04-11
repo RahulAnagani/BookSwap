@@ -12,16 +12,13 @@ const NavBar=()=>{
                 </div>
                 <div className="w-[25%] flex justify-around items-center ">
                     <div className="cursor-pointer flex flex-col justify-between items-center">
-                        <img className="h-10 w-10  hover:cursor-pointer" src="inbox.svg"></img>
-                        <h1 className="text-xs hover:underline  text-white">Inbox</h1>
+                        <h1 className="text-sm font-bold hover:underline  text-gray-900">Near By</h1>
                     </div>
                     <div className="cursor-pointer flex flex-col justify-between items-center">
-                        <img className="h-10 w-10  hover:cursor-pointer" src="neaerBy.svg"></img>
-                        <h1 className="text-xs hover:underline  text-white">near by</h1>
+                        <h1 className="text-sm font-bold hover:underline  text-gray-900">Explore</h1>
                     </div>
                     <div className="cursor-pointer flex flex-col justify-between items-center">
-                        <img className="h-10 w-8  hover:cursor-pointer" src="bell.svg"></img>
-                        <h1 className="text-xs hover:underline  text-white">Notifications</h1>
+                        <h1 className="text-sm font-bold hover:underline  text-gray-900">Requests</h1>
                     </div>
                     <div className="cursor-pointer flex flex-col justify-between items-center">
                     <div className="profile rounded-full flex-col bg-gray-300 p-1 flex justify-center items-center" >

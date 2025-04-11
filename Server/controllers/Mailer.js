@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer");
-const otpModel = require("../models/OTP");
+const otpModel = require("../models/otp");
 
 module.exports.SendOtp = async (email, username, password, otp) => {
   const transporter = nodemailer.createTransport({
@@ -16,6 +16,7 @@ module.exports.SendOtp = async (email, username, password, otp) => {
     subject: "BookSwap Verification Code",
     text: "Here is your code: " + String(otp),
   };
+  
 
   return new Promise((resolve, reject) => {
     transporter.sendMail(mailOptions, async (error, info) => {

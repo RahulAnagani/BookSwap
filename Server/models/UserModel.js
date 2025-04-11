@@ -34,15 +34,17 @@ const UserSchema=new mongoose.Schema({
     },
     wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Book' }],
     swappedBooks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Book' }],
-    bookRefs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Book' }],
+    books: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Book' }],
 });
-UserSchema.methods.GenerateToken=()=>{
-    return jwt.sign({_id:this._id},process.env.PASS,{expiresIn:"24h"});
+UserSchema.methods.GenerateToken = function () {
+    return jwt.sign({ _id: this._id }, process.env.PASS, { expiresIn: "24h" });
 }
 UserSchema.methods.HashPass=async(password)=>{
     return await bcrypt.hash(password,10);
 }
-UserSchema.methods.VerifyPass=async(password)=>{
-    return await bcrypt.compare(password,this.password);
-}
+UserSchema.methods.VerifyPass = async function (password) {
+    if(password==undefined||this.password==undefined)return false;
+    return await bcrypt.compare(password, this.password);
+  };
+  
 module.exports=mongoose.model("User",UserSchema);
