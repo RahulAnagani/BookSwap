@@ -12,4 +12,4 @@ router.post("/accept", [validateUser, body("reqId").isMongoId()], RequestControl
 router.post("/decline", [validateUser, body("reqId").isMongoId()], RequestController.declineRequest);
 router.post("/cancel", [validateUser, body("reqId").isMongoId()], RequestController.cancelRequest);
 
-module.exports = router;
+module.exports = router

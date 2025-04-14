@@ -4,7 +4,7 @@ const express = require("express");
 const router = express.Router();
 const BookController = require("../controllers/Book.controller");
 
-router.post("/addBook", validateUser, [body("title").trim().isLength({min:1}), body("author").trim().isLength({min:1}), body("genre").trim().isLength({min:3}), body("condition").trim().isIn(['new', 'good', 'fair', 'poor']), body("isAvailable").isBoolean(), body("location").trim().isLength({min:5}), body("imageUrl").isURL()], BookController.addBook);
+router.post("/addBook", validateUser, [body("title").trim().isLength({min:1}), body("author").trim().isLength({min:1}), body("genre").trim().isLength({min:3}), body("condition").trim().isIn(['new', 'good', 'fair', 'poor']), body("isAvailable").isBoolean(), body("location").trim().isLength({min:3}), body("imageUrl")], BookController.addBook);
 router.post("/removeBook", validateUser, [body("bookId").isMongoId()], BookController.removeBook);
 router.get("/getBooks", BookController.getBooks);
 

@@ -5,11 +5,18 @@ const Book = require("../models/Book");
 module.exports.addBook=async(req,res)=>{
     const errors=validationResult(req);
     if(!errors.isEmpty()){
-        res.status(400).json({success:false,msg:"Not all fields are correct!"});
+        res.status(400).json({success:false,msg:"Not all fields are correct!",e:errors});
     }
     else{
         try{
             const {author,title,genre,condition,isAvailable,location,imageUrl}=req.body;
+            const coords={
+                ltd:0,
+                lng:0
+            }
+            if(location!=="Not available"){
+                
+            }
             const newBook=new bookModel({
                 author,title,genre,condition,isAvailable,location,
                 owner:req.user._id,

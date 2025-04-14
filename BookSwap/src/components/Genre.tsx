@@ -5,7 +5,7 @@ type prop={
 const Genre:React.FC<prop>=({value,bg})=>{
     return (
         <>
-            <button className={`${bg} cursor-pointer rounded p-2 font-bold text-white`}>{value}</button>
+            <button className={`${bg} w-full cursor-pointer rounded p-2 font-bold text-white`}>{value}</button>
         </>
     )
 }

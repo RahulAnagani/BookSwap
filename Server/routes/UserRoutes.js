@@ -8,4 +8,5 @@ router.post("/register",[body("email").trim().isEmail(),body("username").trim().
 router.post("/verifyOtp",[body("email").trim().isEmail(),body("otp").trim().isLength({max:4,min:4})],userController.verifyOtp);
 // router.post("/logout",validateUser,userController);
 router.get("/getProfile",validateUser,userController.getMyProfile);
+router.get("/ValidateToken",validateUser,userController.ValidateToken);
 module.exports=router;

@@ -12,7 +12,7 @@ module.exports.validateUser=async(req,res,next)=>{
             if(loggedOut)return res.status(400).json({success:false,msg:"User logged out."});
             else{
                 const decoded=jwt.verify(token,process.env.PASS);
-                console.log(decoded)
+
                 const user=await UserModel.findById(decoded._id);
                 if(user){
                     req.user=user;

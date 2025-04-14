@@ -49,8 +49,9 @@ const Inbox=()=>{
         })
       }
       const chat=useRef(null);
+      
     return (<>
-        <div className="bg-gray-100/10 h-full border border-gray-200 w-full rounded relative">
+        <div className="bg-gray-100/10 h-full border border-gray-200 dark:border-gray-700 w-full rounded relative">
             <div className=" h-[10%] p-3 rounded-t font-bold flex justify-between items-center w-full">
                 <h1 >Messages</h1>
             </div>

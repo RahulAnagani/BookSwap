@@ -48,8 +48,12 @@ module.exports.register=async(req,res)=>{
         const {username,email,password}=req.body;
         try{
             const user=await UserModel.findOne({email:email});
+            const use1=await UserModel.findOne({username:username});
             if(user){
                 res.status(400).json({success:false,msg:"User Already Exists."});
+            }
+            if(use1){
+                res.status(400).json({success:false,msg:"Username is already taken."});
             }
             else{
                 const pass=await bcrypt.hash(password,10);
@@ -87,7 +91,7 @@ module.exports.verifyOtp=async(req,res)=>{
                     });
                     const saveduser=await user.save();
                     const token=saveduser.GenerateToken();
-                    if(token)res.status(200).json({success:true,token:token});
+                    if(token)res.status(200).json({success:true,token:token,user:saveduser});
                     else res.status(500).json({success:false,msg:"Internal Server Issue."});
                 }
             }
@@ -103,6 +107,23 @@ module.exports.getMyProfile=async(req,res)=>{
     if(!errors.isEmpty())return res.status(400).json({success:false,msg:"Not all fields are submitted."});
     try{
          const user=await UserModel.findOne({_id:req.user._id}).populate("books","title author imageUrl genre");
+            if(!user){
+                res.status(404).json({success:false,msg:"User not found!"});
+            }
+            else{
+                res.status(200).json({success:true,user:user});
+            }
+    }
+    catch(e){
+        console.log(e);
+    res.status(500).json({ success: false, msg: "Internal Server Error" });
+    }
+}
+module.exports.ValidateToken=async(req,res)=>{
+    const errors=validationResult(req);
+    if(!errors.isEmpty())return res.status(400).json({success:false,msg:"Not all fields are submitted."});
+    try{
+         const user=await UserModel.findOne({_id:req.user._id});
             if(!user){
                 res.status(404).json({success:false,msg:"User not found!"});
             }
