@@ -3,6 +3,7 @@ type Book = {
   author: string;
   cover: string;
   coverId: string;
+  Okey:string
 };
 
 const Suggestion: React.FC<{
@@ -11,11 +12,12 @@ const Suggestion: React.FC<{
   cover: string;
   author: string;
   handler: (obj: Book) => void;
-}> = ({ title, cover, handler, coverId, author }) => {
+  Okey:string
+}> = ({ title, cover, handler, coverId, author,Okey}) => {
   return (
     <>
       <div
-        onClick={() => handler({ title, cover, author, coverId})}
+        onClick={() => handler({ title, cover, author, coverId,Okey})}
         className="w-full dark:bg-gray-900 p-1 border border-t-0 border-r-0 border-l-0 border-gray-400 dark:border-gray-800 cursor-pointer bg-gray-300 flex h-[10dvh]"
       >
         <div className="w-[15%]">

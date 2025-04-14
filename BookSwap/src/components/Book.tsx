@@ -39,7 +39,8 @@ const Book:React.FC<props>=({title,author,rating,cover,genHanlder})=>{
         getGenre(title);
     },[title]);
     const [loading,setLoading]=useState<boolean>(true);
-    return (<>
+
+return (<>
         <div onClick={()=>setIsOpen(prev=>!prev)} className="cursor-pointer flex transition-transform duration-300 hover:scale-105 bg-gray-400 w-50 h-60 text-black rounded ">
             <div className={`${isOpen ? "w-[30%]" : "w-[70%]"} relative left overflow-hidden rounded h-full dark:bg-gray-300 flex p-2 justify-center items-center`}>
                 {loading&&<Spinner></Spinner>}

@@ -18,8 +18,9 @@ module.exports.login=async(req,res)=>{
     }
     else{
         const {username,password}=req.body;
+        const usernamee=String(username).toLowerCase();
         try{
-            const user=await UserModel.findOne({username:username}).select("+password");
+            const user=await UserModel.findOne({username:usernamee}).select("+password");
             if(!user){
                 res.status(404).json({success:false,msg:"No user found with this username."});
             }
@@ -46,9 +47,10 @@ module.exports.register=async(req,res)=>{
     if(!errors.isEmpty())res.status(400).json({success:false,msg:"Not all fields are submitted."});
     else{
         const {username,email,password}=req.body;
+        const usernameee=String(username).toLowerCase();
         try{
             const user=await UserModel.findOne({email:email});
-            const use1=await UserModel.findOne({username:username});
+            const use1=await UserModel.findOne({username:usernameee});
             if(user){
                 res.status(400).json({success:false,msg:"User Already Exists."});
             }
@@ -58,7 +60,7 @@ module.exports.register=async(req,res)=>{
             else{
                 const pass=await bcrypt.hash(password,10);
                 const otp=generateOtp();
-                const sent=await mailer.SendOtp(email,username,pass,otp);
+                const sent=await mailer.SendOtp(email,usernameee,pass,otp);
                 if(sent){
                     res.status(200).json({success:true,msg:"OTP is sent the email."});
                 }

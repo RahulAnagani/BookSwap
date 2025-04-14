@@ -1,5 +1,4 @@
     import { useEffect, useRef, useState } from "react";
-    import Form from "./Form";
     import { CgDanger } from "react-icons/cg";
     import SearchBar from "./SearchBar";
     import Suggestion from "./Suggestion";
@@ -10,16 +9,15 @@ import { IoChevronBackSharp } from "react-icons/io5";
 import BookCondition from "./BookCondition";
 import Availability from "./Availability";
 import Location from "./Location";
-import AlertBox from "./Slider";
-import DeleteConfirmation from "./Slider";
 import SwipeToConfirm from "./Slider";
 
 const FloatAdd:React.FC<{handle:()=>void,handleSucces:()=>void,handlerError:()=>void}>=({handle,handleSucces,handlerError})=>{
     type suggestion={
         title:string,
         author:string,
-            cover:string,
-            coverId:string
+        cover:string,
+        coverId:string,
+        Okey:string
         }
         type Location={
             description:string,
@@ -79,6 +77,7 @@ const FloatAdd:React.FC<{handle:()=>void,handleSucces:()=>void,handlerError:()=>
                                 author: doc.author_name?.[0] ?? "Unknown",
                                 cover:doc.cover_edition_key,
                                 coverId:doc.cover_i,
+                                Okey:doc.key
                         }));
                         setSuggestions(newSuggestions);
                     } else {
@@ -133,7 +132,7 @@ const FloatAdd:React.FC<{handle:()=>void,handleSucces:()=>void,handlerError:()=>
         const suggestionHandler=(e:React.ChangeEvent<HTMLInputElement>)=>{
             setQuery(e.target.value);
         }
-        const [selectedBook,setSelectedBook]=useState<suggestion>({title:"",author:"",cover:"",coverId:""});
+        const [selectedBook,setSelectedBook]=useState<suggestion>({title:"",author:"",cover:"",coverId:"",Okey:""});
         const [genre,setGenre]=useState("");
         const [tempFlag,setFlag]=useState(false);
         const genHanlder=(abc:string)=>{
@@ -143,8 +142,9 @@ const FloatAdd:React.FC<{handle:()=>void,handleSucces:()=>void,handlerError:()=>
             else setFlag(false);
         }
         const handler=(obj:suggestion)=>{
-            setStep(2);
             setSelectedBook(obj);
+            // console.log(obj);
+            setStep(2);
         }
         return (
             <div className="w-full h-full z-100 absolute flex justify-center items-center glassy-metallic  flex-col">
@@ -166,11 +166,11 @@ const FloatAdd:React.FC<{handle:()=>void,handleSucces:()=>void,handlerError:()=>
                         <h1 className="font-bold text-2xl text-white ">Add a Book</h1>
                         {step===1&&<div className="w-full flex justify-center items-center">
                         <div ref={searchRef} className="w-[100%] flex flex-col p-0 relative justify-center items-center ">
-                        <SearchBar handler={suggestionHandler}></SearchBar>
+                        <SearchBar value={query} handler={suggestionHandler}></SearchBar>
                         <div className="absolute w-[75%] h-auto rounded rounded-t-0 dark:bg-gray-900 bg-gray-300 z-100 top-[90%]">
                             {
                                 suggestions.map((e)=>{
-                                    return <Suggestion handler={handler}  key={e.coverId} title={e.title} author={e.author} coverId={e.coverId} cover={e.cover}></Suggestion>
+                                    return <Suggestion handler={handler} Okey={e.Okey}  key={e.coverId} title={e.title} author={e.author} coverId={e.coverId} cover={e.cover}></Suggestion>
                                 })
                             }
                         </div>
@@ -212,7 +212,7 @@ const FloatAdd:React.FC<{handle:()=>void,handleSucces:()=>void,handlerError:()=>
                                         </div>
                                         {location.description.length===0?<div className="w-full flex-col flex relative items-center justify-center">
                                             <div className="w-full flex justify-center items-end">
-                                        <SearchBar handler={(e:React.ChangeEvent<HTMLInputElement>)=>{
+                                        <SearchBar value={locationQuery} handler={(e:React.ChangeEvent<HTMLInputElement>)=>{
                                             setLocationQuery(e.target.value);
                                         }}></SearchBar>
                                         </div>
@@ -221,7 +221,7 @@ const FloatAdd:React.FC<{handle:()=>void,handleSucces:()=>void,handlerError:()=>
                                                 locationPredictions.map((e,i)=>{
                                                     return (
                                                         <>
-                                                            <Location description={e.description} place_id={e.place_id} handler={(pid,loc)=>{
+                                                            <Location key={i} description={e.description} place_id={e.place_id} handler={(pid,loc)=>{
                                                                 const newLoc:Location={
                                                                     place_id:pid,
                                                                     description:loc
@@ -270,6 +270,7 @@ const FloatAdd:React.FC<{handle:()=>void,handleSucces:()=>void,handlerError:()=>
                                             genre:genre,
                                             condition:cond,
                                             isAvailable:av,
+                                            key:selectedBook.Okey,
                                             location:"Not available",
                                             imageUrl:selectedBook.cover?selectedBook.cover:selectedBook.coverId,
                                         },{
@@ -278,6 +279,7 @@ const FloatAdd:React.FC<{handle:()=>void,handleSucces:()=>void,handlerError:()=>
                                             }
                                         })
                                         .then((res)=>{
+                                            if(res.data.success)
                                             setSuccess(1);
                                         })
                                         .catch(e=>{
@@ -302,12 +304,14 @@ const FloatAdd:React.FC<{handle:()=>void,handleSucces:()=>void,handlerError:()=>
                                             isAvailable:av,
                                             location:location.place_id,
                                             imageUrl:selectedBook.cover?selectedBook.cover:selectedBook.coverId,
+                                            key:selectedBook.Okey
                                         },{
                                             headers:{
                                                 Authorization:`jsp ${token}`
                                             }
                                         })
                                         .then((res)=>{
+                                            if(res.data.success)
                                             setSuccess(1);
                                         })
                                         .catch(e=>{

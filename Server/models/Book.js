@@ -19,5 +19,6 @@ const BookSchema=new mongoose.Schema({
             type:Number,
         }
     },
+    key:String
   });
   module.exports=mongoose.model("Book",BookSchema);

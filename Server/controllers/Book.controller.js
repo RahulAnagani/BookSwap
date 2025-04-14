@@ -2,6 +2,7 @@ const { validationResult } = require("express-validator");
 const bookModel=require("../models/Book");
 const userModel=require("../models/UserModel");
 const Book = require("../models/Book");
+const mapController=require("./Map.controller")
 module.exports.addBook=async(req,res)=>{
     const errors=validationResult(req);
     if(!errors.isEmpty()){
@@ -9,18 +10,19 @@ module.exports.addBook=async(req,res)=>{
     }
     else{
         try{
-            const {author,title,genre,condition,isAvailable,location,imageUrl}=req.body;
-            const coords={
+            const {author,title,genre,condition,isAvailable,location,imageUrl,key}=req.body;
+            let coords={
                 ltd:0,
                 lng:0
             }
             if(location!=="Not available"){
-                
+                coords=await mapController.getCoords(location);
             }
             const newBook=new bookModel({
-                author,title,genre,condition,isAvailable,location,
+                author,title,genre,condition,isAvailable,location:coords,
                 owner:req.user._id,
-                imageUrl
+                imageUrl,
+                key
             });
             await newBook.save();
             const user=await userModel.findByIdAndUpdate(req.user._id,{$push:{books:newBook._id}},{new:true});
