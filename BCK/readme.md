@@ -30,5 +30,5 @@ This is the backend for the BookSwap application, built using **Node.js**, **Exp
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/bookswap.git
+   git clone https://github.com/RahulAnagani/BookSwap.git
    cd bookswap/BCK
