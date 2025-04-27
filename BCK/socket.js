@@ -18,7 +18,6 @@ module.exports.initializeServer = (server) => {
       const { userId } = data;
       if (!userId) return;
       onlineUsers.set(userId, socket.id);
-      console.log("hi")
       try {
         await userModel.findByIdAndUpdate(userId, { socketId: socket.id });
         socket.userId = userId; 

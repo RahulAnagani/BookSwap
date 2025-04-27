@@ -15,6 +15,7 @@ import SideBar from "../components/SideBar";
 import { motion } from "framer-motion";
 import FloatingBar from "../components/FloatingBar";
 import FloatAdd from "../components/FloatAdd";
+import { useNavigate } from "react-router-dom";
 
 interface User {
   _id: string;
@@ -57,7 +58,7 @@ const DashBoard = () => {
   const [trendingBooks, setTrendingBooks] = useState<TrendingBook[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-
+  const nav=useNavigate();
   useEffect(() => {
     const fetchTrendingBooks = async () => {
       try {
@@ -84,11 +85,11 @@ const DashBoard = () => {
 
   const genres = [
     {
-      value: "Fantasy",
+      value: "Love",
       bg: "bg-gradient-to-br from-purple-400 via-indigo-500 to-purple-800 text-white shadow-lg dark:from-purple-700 dark:via-indigo-800 dark:to-purple-900",
     },
     {
-      value: "Sci-Fi",
+      value: "Friendship",
       bg: "bg-gradient-to-br from-cyan-400 via-blue-500 to-indigo-700 text-white shadow-lg dark:from-cyan-600 dark:via-blue-800 dark:to-indigo-900",
     },
     {
@@ -96,15 +97,15 @@ const DashBoard = () => {
       bg: "bg-gradient-to-br from-pink-300 via-pink-500 to-red-500 text-white shadow-lg dark:from-pink-600 dark:via-rose-700 dark:to-red-800",
     },
     {
-      value: "Thriller",
+      value: "Heartache",
       bg: "bg-gradient-to-br from-red-400 via-red-600 to-black text-white shadow-lg dark:from-red-700 dark:via-red-900 dark:to-black",
     },
     {
-      value: "Mystery",
+      value: "Persecution",
       bg: "bg-gradient-to-br from-gray-600 via-gray-800 to-black text-white shadow-lg dark:from-gray-800 dark:via-gray-900 dark:to-black",
     },
     {
-      value: "Non-fiction",
+      value: "Biology",
       bg: "bg-gradient-to-br from-green-400 via-emerald-600 to-teal-700 text-white shadow-lg dark:from-green-700 dark:via-emerald-800 dark:to-teal-900",
     },
   ];
@@ -160,6 +161,9 @@ const DashBoard = () => {
               <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4">
                 {genres.map((e, i) => (
                   <motion.div
+                  onClick={()=>{
+                    nav(`/genre/${e.value}`)
+                  }}
                     key={e.value}
                     initial={{ rotate: -10, opacity: 0, x: -20, y: -20, scale: 0.8 }}
                     animate={{ rotate: 0, opacity: 1, x: 0, y: 0, scale: 1 }}

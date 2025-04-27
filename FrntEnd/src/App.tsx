@@ -8,6 +8,8 @@ import Requests from './Pages/Requests'
 import Explore from './Pages/explore'
 import BookPage from './Pages/BookPage'
 import MessagingComponent from './Pages/Messages'
+import Bunch from './Pages/Bunch'
+import NearbyBooks from './Pages/NearBy'
 
 function App() {
   const ChatRedirect = () => {
@@ -29,8 +31,9 @@ function App() {
           <Route path="/chat" element={<AAth><MessagingComponent/></AAth>} />
           <Route path="/chat/:username" element={<AAth><MessagingComponent/></AAth>} />
           <Route path="/book/:title" element={<AAth><BookPage/></AAth>} />
-          <Route path="/chat/*" element={<ChatRedirect />} />
-          <Route path="/chat/*" element={<ChatRedirect />} />
+          <Route path="/chat/*" element={<AAth><ChatRedirect /></AAth>} />
+          <Route path="/genre/:genre" element={<AAth><Bunch /></AAth>} />
+          <Route path="/nearBy" element={<AAth><NearbyBooks /></AAth>} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>

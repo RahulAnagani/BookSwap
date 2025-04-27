@@ -28,6 +28,7 @@ const AAth:React.FC<{children:ReactNode}>=({children})=>{
         const token=localStorage.getItem("token");
         if(!token){
             nav("/login");
+            // console.log("hi")
         }
         else{
             axios.get<response>(`${api}/user/ValidateToken`,{headers:{
@@ -35,7 +36,7 @@ const AAth:React.FC<{children:ReactNode}>=({children})=>{
             }}).then((res)=>{
                 if(res.data.success===true){
                     if(res.data.user)
-                    setUserId(res.data.user._id);
+                        setUserId(res.data.user._id);
                     dis(actions.setUser(res.data.user));
                 }
                 else{

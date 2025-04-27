@@ -107,7 +107,7 @@ const NavBar: React.FC<{ handler: () => void }> = ({ handler }) => {
                 </div>
                 <div className="w-[30%] blaj flex justify-around items-center ">
                     <div className="cursor-pointer jsp flex flex-col justify-between items-center">
-                        <h1 className="text-xs font-semibold hover:underline dark:text-white text-gray-900">Near By</h1>
+                        <h1 onClick={()=>nav("/nearby")} className="text-xs font-semibold hover:underline dark:text-white text-gray-900">Near By</h1>
                     </div>
                     <div className="cursor-pointer jsp flex flex-col justify-between items-center">
                         <h1 onClick={()=>nav("/explore")} className="text-xs font-semibold hover:underline dark:text-white text-gray-900">Explore</h1>
@@ -118,8 +118,8 @@ const NavBar: React.FC<{ handler: () => void }> = ({ handler }) => {
                         </h1>
                     </div>
                     <div className="cursor-pointer jsp flex flex-col justify-between items-center">
-                        <h1 className="text-xs font-semibold hover:underline dark:text-white text-gray-900">
-                            <Link to={"/requests"}>Chats</Link>
+                        <h1 onClick={()=>nav("/chat")} className="text-xs font-semibold hover:underline dark:text-white text-gray-900">
+                            Chats
                         </h1>
                     </div>
                     <div className="cursor-pointer jsp flex flex-col justify-between items-center">

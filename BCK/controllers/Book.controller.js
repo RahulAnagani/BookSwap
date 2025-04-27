@@ -52,22 +52,37 @@ module.exports.removeBook=async(req,res)=>{
     }
 }
 
-module.exports.getBooks=async(req,res)=>{
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
-    const skip = (page - 1) * limit;
+module.exports.bookRadius=async(req,res)=>{
+    const errors=validationResult(req);
+    if(!errors.isEmpty())return res.status(400).json({success:false,msg:"Not all feilds are submitted"});
     try{
-        const allBooks=await bookModel.find().skip(skip).limit(limit);
+        const {lat,lng,radius}=req.body;
+        const books=await bookModel.find({
+            location:{
+                $geoWithin:{
+                        $centerSphere:[[Number(lat),Number(lng)],radius/6371]
+                }
+            }
+        });
+        return res.status(200).json({success:true,data:books});
+    }
+    catch(e){
+        console.log(e)
+        return res.status(500).json({success:false,msg:"Internal SErver error"});
+    }
+}
+
+module.exports.getBooks=async(req,res)=>{
+    try{
+        const allBooks=await bookModel.find();
         const total = await bookModel.countDocuments();
         res.status(200).json({
             success: true,
             data: allBooks,
-            currentPage: page,
-            totalPages: Math.ceil(total / limit),
-            totalBooks: total
           });
     }
     catch(e){
+        console.log(e)
         res.status(500).json({success:false,msg:"Internal server error"})
     }
 }

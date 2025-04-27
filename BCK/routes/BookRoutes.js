@@ -8,4 +8,5 @@ router.post("/addBook", validateUser, [body("title").trim().isLength({min:1}), b
 router.post("/removeBook", validateUser, [body("bookId").isMongoId()], BookController.removeBook);
 router.get("/getBooks", BookController.getBooks);
 router.get("/availability",validateUser,query("okey").trim().isLength({min:3}),BookController.checkAvailability);
+router.post("/aroundMe",validateUser,body("lat"),body("lng"),BookController.bookRadius);
 module.exports = router;

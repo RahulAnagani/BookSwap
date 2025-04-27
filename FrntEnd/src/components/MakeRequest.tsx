@@ -107,13 +107,13 @@ const BookRequestHandler: React.FC<BookRequestHandlerProps> = ({
   };
 
   return (
-    <div className="flex flex-col h-[75%] dark-mode w-[75%] md:flex-row bg-white rounded-lg shadow-lg overflow-hidden">
-      <div className="w-full md:w-1/3 bg-gray-100 dark:bg-gray-900 flex items-center justify-center p-6">
-        <div className="relative">
+    <div className="flex flex-col h-auto min-h-[80vh] md:h-[75%] w-full md:w-[75%] md:flex-row bg-white rounded-lg shadow-lg overflow-hidden">
+      <div className="w-full md:w-1/3 bg-gray-100 dark:bg-gray-900 flex items-center justify-center p-4 md:p-6">
+        <div className="relative w-full max-w-[200px] md:max-w-none">
           {tobook.cover ? (
             <>
               <img 
-                className="rounded object-cover h-[300px]" 
+                className="rounded object-cover h-[200px] sm:h-[250px] md:h-[300px] mx-auto" 
                 src={getCoverImageUrl(tobook.cover)}
                 onLoad={() => setLoad(false)}
                 alt="Book cover" 
@@ -124,35 +124,37 @@ const BookRequestHandler: React.FC<BookRequestHandlerProps> = ({
             load && <Loader />
           )}
           <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 text-white p-2 rounded-b">
-            <h3 className="font-medium text-center">{tobook.title}</h3>
+            <h3 className="font-medium text-center text-sm sm:text-base truncate">{tobook.title}</h3>
           </div>
         </div>
       </div>
 
       {!success && (
-        <div className="w-full md:w-2/3 p-3 relative">
-          <MdOutlineArrowBackIos 
-            className="flex m-2 cursor-pointer" 
-            onClick={() => {if(step > 1) setStep(1)}}
-          />
-          <ImCross 
-            className="absolute right-3 top-3 hover:fill-red-500 cursor-pointer" 
-            onClick={() => onRequestComplete && onRequestComplete()}
-          />
+        <div className="w-full md:w-2/3 p-3 md:p-4 relative flex-grow overflow-y-auto">
+          <div className="flex items-center justify-between mb-2">
+            <MdOutlineArrowBackIos 
+              className="cursor-pointer" 
+              onClick={() => {if(step > 1) setStep(1)}}
+            />
+            <ImCross 
+              className="hover:fill-red-500 cursor-pointer" 
+              onClick={() => onRequestComplete && onRequestComplete()}
+            />
+          </div>
           
           <div className="mb-4">
-            <div className="flex items-center mb-6">
-              <div className={`flex items-center justify-center w-8 h-8 rounded-full ${step >= 1 ? 'bg-blue-600 text-white' : 'bg-gray-300'}`}>
+            <div className="flex items-center mb-4 md:mb-6">
+              <div className={`flex items-center justify-center w-6 h-6 md:w-8 md:h-8 rounded-full ${step >= 1 ? 'bg-blue-600 text-white' : 'bg-gray-300'}`}>
                 1
               </div>
               <div className="mx-2 flex-grow h-0.5 bg-gray-300"></div>
-              <div className={`flex items-center justify-center w-8 h-8 rounded-full ${step >= 2 ? 'bg-blue-600 text-white' : 'bg-gray-300'}`}>
+              <div className={`flex items-center justify-center w-6 h-6 md:w-8 md:h-8 rounded-full ${step >= 2 ? 'bg-blue-600 text-white' : 'bg-gray-300'}`}>
                 2
               </div>
               {requestType === 'swap' && (
                 <>
                   <div className="mx-2 flex-grow h-0.5 bg-gray-300"></div>
-                  <div className={`flex items-center justify-center w-8 h-8 rounded-full ${step >= 3 ? 'bg-blue-600 text-white' : 'bg-gray-300'}`}>
+                  <div className={`flex items-center justify-center w-6 h-6 md:w-8 md:h-8 rounded-full ${step >= 3 ? 'bg-blue-600 text-white' : 'bg-gray-300'}`}>
                     3
                   </div>
                 </>
@@ -161,30 +163,30 @@ const BookRequestHandler: React.FC<BookRequestHandlerProps> = ({
           </div>
 
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-4">
+            <div className="bg-red-50 border border-red-200 text-red-700 px-3 py-2 md:px-4 md:py-3 rounded mb-3 md:mb-4 text-sm md:text-base">
               {error}
             </div>
           )}
 
           {step === 1 && (
             <div className="animate-fadeIn">
-              <h2 className="text-2xl font-bold mb-6">How would you like to request this book?</h2>
+              <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6">How would you like to request this book?</h2>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-4">
                 <button
                   onClick={() => handleRequestTypeSelect('buy')}
-                  className="flex cursor-pointer items-center justify-center p-6 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all"
+                  className="flex cursor-pointer items-center justify-center p-4 md:p-6 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all"
                 >
-                  <ShoppingCart className="text-blue-600 mr-3" size={24} />
-                  <span className="text-lg font-medium">Buy</span>
+                  <ShoppingCart className="text-blue-600 mr-2 md:mr-3" size={20} />
+                  <span className="text-base md:text-lg font-medium">Buy</span>
                 </button>
                 
                 <button
                   onClick={() => handleRequestTypeSelect('swap')}
-                  className="flex cursor-pointer items-center justify-center p-6 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all"
+                  className="flex cursor-pointer items-center justify-center p-4 md:p-6 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all"
                 >
-                  <Repeat className="text-blue-600 mr-3" size={24} />
-                  <span className="text-lg font-medium">Swap</span>
+                  <Repeat className="text-blue-600 mr-2 md:mr-3" size={20} />
+                  <span className="text-base md:text-lg font-medium">Swap</span>
                 </button>
               </div>
             </div>
@@ -192,8 +194,8 @@ const BookRequestHandler: React.FC<BookRequestHandlerProps> = ({
 
           {step === 2 && (
             <div className="animate-fadeIn">
-              <h2 className="text-2xl font-bold mb-4">Confirm Your Purchase Request</h2>
-              <p className="text-gray-600 mb-8">
+              <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">Confirm Your Purchase Request</h2>
+              <p className="text-gray-600 text-sm md:text-base mb-6 md:mb-8">
                 You're about to request to buy "{tobook.title}". Once the owner accepts, you'll 
                 be able to arrange payment and delivery details.
               </p>
@@ -225,16 +227,16 @@ const BookRequestHandler: React.FC<BookRequestHandlerProps> = ({
                   }
                 }}
                 disabled={loading}
-                className={`flex items-center justify-center ${loading ? 'bg-blue-400' : 'bg-blue-600 hover:bg-blue-700'} text-white py-3 px-6 rounded-lg transition-colors w-full sm:w-auto`}
+                className={`flex items-center justify-center ${loading ? 'bg-blue-400' : 'bg-blue-600 hover:bg-blue-700'} text-white py-2 md:py-3 px-4 md:px-6 rounded-lg transition-colors w-full sm:w-auto`}
               >
                 {loading ? (
                   <>
-                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                    <div className="w-4 h-4 md:w-5 md:h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
                     Processing...
                   </>
                 ) : (
                   <>
-                    <Check className="mr-2" size={20} />
+                    <Check className="mr-2" size={18} />
                     Confirm Request
                   </>
                 )}
@@ -244,13 +246,13 @@ const BookRequestHandler: React.FC<BookRequestHandlerProps> = ({
 
           {step === 3 && (
             <div className="animate-fadeIn">
-              <h2 className="text-2xl font-bold mb-4">Select a Book to Swap</h2>
-              <p className="text-gray-600 mb-4">
+              <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">Select a Book to Swap</h2>
+              <p className="text-gray-600 text-sm md:text-base mb-3 md:mb-4">
                 Choose one of your books to offer in exchange for "{tobook.title}".
               </p>
               
               {myBooks.length > 0 ? (
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-6 max-h-64 overflow-y-auto">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-4 mb-4 md:mb-6 max-h-48 md:max-h-64 overflow-y-auto p-1">
                   {myBooks.map((myBook) => (
                     <div 
                       key={myBook.id}
@@ -262,21 +264,21 @@ const BookRequestHandler: React.FC<BookRequestHandlerProps> = ({
                       <img 
                         src={getCoverImageUrl(myBook.cover)} 
                         alt={myBook.title} 
-                        className="w-full h-40 object-cover"
+                        className="w-full h-24 sm:h-32 md:h-40 object-cover"
                       />
                       {selectedBook?.id === myBook.id && (
-                        <div className="absolute top-2 right-2 bg-blue-600 rounded-full p-1">
-                          <Check className="text-white" size={16} />
+                        <div className="absolute top-1 right-1 md:top-2 md:right-2 bg-blue-600 rounded-full p-1">
+                          <Check className="text-white" size={12} />
                         </div>
                       )}
-                      <div className="p-2 text-center text-sm font-medium truncate">{myBook.title}</div>
+                      <div className="p-1 md:p-2 text-center text-xs md:text-sm font-medium truncate">{myBook.title}</div>
                     </div>
                   ))}
                 </div>
               ) : (
-                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 md:p-4 mb-4 md:mb-6 text-sm md:text-base">
                   <p className="text-yellow-700 font-medium">You don't have any books to swap.</p>
-                  <p className="text-yellow-600 mt-2">Add books to your library first to enable swapping.</p>
+                  <p className="text-yellow-600 mt-1 md:mt-2">Add books to your library first to enable swapping.</p>
                 </div>
               )}
               
@@ -308,7 +310,7 @@ const BookRequestHandler: React.FC<BookRequestHandlerProps> = ({
                   }
                 }}
                 disabled={!selectedBook || myBooks.length === 0 || loading}
-                className={`flex items-center justify-center py-3 px-6 rounded-lg transition-colors w-full sm:w-auto ${
+                className={`flex items-center justify-center py-2 md:py-3 px-4 md:px-6 rounded-lg transition-colors w-full sm:w-auto text-sm md:text-base ${
                   selectedBook && myBooks.length > 0 && !loading 
                     ? 'bg-blue-600 hover:bg-blue-700 text-white' 
                     : 'bg-gray-300 text-gray-500 cursor-not-allowed'
@@ -316,12 +318,12 @@ const BookRequestHandler: React.FC<BookRequestHandlerProps> = ({
               >
                 {loading ? (
                   <>
-                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                    <div className="w-4 h-4 md:w-5 md:h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
                     Processing...
                   </>
                 ) : (
                   <>
-                    <Check className="mr-2" size={20} />
+                    <Check className="mr-2" size={18} />
                     Confirm Swap Request
                   </>
                 )}
@@ -334,41 +336,43 @@ const BookRequestHandler: React.FC<BookRequestHandlerProps> = ({
       {success && (
         <div className="w-full md:w-2/3 p-3 relative flex items-center justify-center bg-gray-200">
           {!showDetails ? (
-            <FancySvg />
+            <div className="py-8">
+              <FancySvg />
+            </div>
           ) : (
-            <div className="w-full p-6 animate-fadeIn">
+            <div className="w-full p-3 md:p-6 animate-fadeIn">
               <ImCross 
                 className="absolute right-3 top-3 hover:fill-red-500 cursor-pointer" 
                 onClick={() => onRequestComplete && onRequestComplete()}
               />
               
-              <div className="bg-white dark:bg-gray-700 rounded-lg shadow p-6 w-full">
-                <div className="flex items-center mb-4">
-                  <div className="bg-green-100 dark:bg-green-800 p-2 rounded-full">
-                    <Check className="text-green-600 dark:text-green-300" size={24} />
+              <div className="bg-white dark:bg-gray-700 rounded-lg shadow p-4 md:p-6 w-full">
+                <div className="flex items-center mb-3 md:mb-4">
+                  <div className="bg-green-100 dark:bg-green-800 p-1 md:p-2 rounded-full">
+                    <Check className="text-green-600 dark:text-green-300" size={20} />
                   </div>
-                  <h2 className="text-2xl font-bold ml-3">Request Submitted!</h2>
+                  <h2 className="text-xl md:text-2xl font-bold ml-2 md:ml-3">Request Submitted!</h2>
                 </div>
                 
-                <div className="mb-4">
-                  <p className="text-gray-600 dark:text-gray-300">
+                <div className="mb-3 md:mb-4">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm md:text-base">
                     Your {requestData?.type === 'Swap' ? 'swap' : 'purchase'} request has been submitted successfully.
                   </p>
                   {requestData && (
                     <>
-                      <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">
+                      <p className="text-gray-500 dark:text-gray-400 text-xs md:text-sm mt-1">
                         Request ID: {requestData._id}
                       </p>
-                      <p className="text-gray-500 dark:text-gray-400 text-sm">
+                      <p className="text-gray-500 dark:text-gray-400 text-xs md:text-sm">
                         Submitted on: {requestData.createdAt ? formatDate(requestData.createdAt) : 'Just now'}
                       </p>
                     </>
                   )}
                 </div>
                 
-                <div className="border-t border-gray-200 dark:border-gray-600 pt-4 mb-4">
-                  <h3 className="font-medium mb-2">Request Details:</h3>
-                  <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded">
+                <div className="border-t border-gray-200 dark:border-gray-600 pt-3 md:pt-4 mb-3 md:mb-4">
+                  <h3 className="font-medium mb-1 md:mb-2 text-sm md:text-base">Request Details:</h3>
+                  <div className="bg-gray-50 dark:bg-gray-800 p-2 md:p-3 rounded text-xs md:text-sm">
                     <p className="mb-1">
                       <span className="font-medium">Type:</span> {requestData?.type || "Purchase"}
                     </p>
@@ -384,7 +388,7 @@ const BookRequestHandler: React.FC<BookRequestHandlerProps> = ({
                 <div className="flex justify-end">
                   <button
                     onClick={() => onRequestComplete && onRequestComplete()}
-                    className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded transition-colors"
+                    className="bg-blue-600 hover:bg-blue-700 text-white py-1.5 md:py-2 px-3 md:px-4 rounded text-sm md:text-base transition-colors"
                   >
                     Close
                   </button>

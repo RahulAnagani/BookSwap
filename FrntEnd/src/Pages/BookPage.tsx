@@ -79,29 +79,26 @@ const Explore = () => {
     if (sideBar) {
       gsap.to(sideRef.current, {
         right: 0,
-        width: "25%",
-        ease: "power2.out",
-        duration: 0.5
-      });
+        width: window.innerWidth >= 768 ? "25%" : "100%",
+        duration: 0.3
+      })
       gsap.to(leftTab.current, {
-        width: "73%", 
-        ease: "power2.out",
-        duration: 0.5
-      });
-    } else {
+        width: window.innerWidth >= 768 ? "75%" : "0%",
+        duration: 0.3
+      })
+    }
+    else {
       gsap.to(sideRef.current, {
         right: "-10%",
         width: 0,
-        ease: "power2.out",
         duration: 0.3
-      });
+      })
       gsap.to(leftTab.current, {
         width: "100%",
-        ease: "power2.out",
-        duration: 0.5
-      });
+        duration: 0.3
+      })
     }
-  }, [sideBar]);
+  }, [sideBar])
 
   useEffect(() => {
     setTitle("");
