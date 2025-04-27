@@ -29,7 +29,7 @@ const Bunch= () => {
   };
 
   const [sideBar, setSideBar] = useState<boolean>(false);
-  const Booksapi = import.meta.env.VITE_API_URL;
+
   const sideRef = useRef(null);
   const leftTab = useRef(null);
   const {genre}=useParams<{genre:string}>();
@@ -61,7 +61,7 @@ const Bunch= () => {
         axios.get(`https://openlibrary.org/subjects/${genre.toLowerCase()}.json`).then(
             res=>{
                 if(res.data){
-                    const pspk:Book[]=res.data.works.map((e:any,i:Number)=>{
+                    const pspk:Book[]=res.data.works.map((e:any)=>{
                         return {
                             title:e.title,
                             Okey:e.key,
