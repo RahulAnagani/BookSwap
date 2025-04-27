@@ -20,7 +20,7 @@ function App() {
   return (
     <>
       <title>Swipe Swap Read</title>
-      <HashRouter basename="/BookSwap">
+      <HashRouter>
         <Routes>
           <Route path="/" element={<AAth><DashBoard/></AAth>} />
           <Route path="/login" element={<Login/>} />
