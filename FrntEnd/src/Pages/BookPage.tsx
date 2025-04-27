@@ -278,6 +278,7 @@ const Explore = () => {
 
   return (
     <div className="w-screen h-screen flex flex-col relative bg-white dark:bg-gray-900 dark:text-white overflow-hidden transition-colors duration-300">
+      <title>{tit?tit:"BookSwap"}</title>
       {avaPage && (
         <div className="fixed flex items-center justify-center glassy-metallic w-full h-full z-50">
           {fetchAvailability && <Loader1 />}
