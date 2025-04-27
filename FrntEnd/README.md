@@ -1,54 +1,33 @@
-# React + TypeScript + Vite
+# BookSwap Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend for the BookSwap application, built using **React**, **Tailwind CSS**, and **TypeScript**. The frontend allows users to interact with the application, browse books, make buy/swap requests, communicate via chat, and manage their profiles.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **User Authentication**: Secure login and registration pages.
+- **Book Browsing**: Search and filter books by genres or location.
+- **Book Requests**: Users can view, create, and manage book buy/swap requests.
+- **Real-time Chat**: Messaging system for communication between users regarding book transactions.
+- **Responsive UI**: Designed with Tailwind CSS to be fully responsive.
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **React**: Frontend framework.
+- **Tailwind CSS**: Utility-first CSS framework for styling.
+- **TypeScript**: Typed JavaScript for better developer experience.
+- **Axios**: For making HTTP requests.
+- **Socket.IO-client**: Real-time communication for chat functionality.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Installation
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Prerequisites
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- [Node.js](https://nodejs.org/) - Version 14.x or above
+- [Tailwind CSS](https://tailwindcss.com/docs/installation) (with CLI setup)
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+### Setup
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/bookswap.git
+   cd bookswap/FrntEnd
