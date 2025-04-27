@@ -2,7 +2,7 @@ import Login from './Pages/Login'
 import Register from './Pages/Register'
 import DashBoard from './Pages/DashBoard'
 import "./app.css"
-import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
+import { HashRouter, Route, Routes, Navigate } from 'react-router-dom'
 import AAth from './context/AAth'
 import Requests from './Pages/Requests'
 import Explore from './Pages/explore'
@@ -13,14 +13,14 @@ import NearbyBooks from './Pages/NearBy'
 
 function App() {
   const ChatRedirect = () => {
-    const path = window.location.pathname.toLowerCase();
+    const path = window.location.hash.replace('#', '').toLowerCase();
     return <Navigate to={path} replace />;
   };
 
   return (
     <>
       <title>Swipe Swap Read</title>
-      <BrowserRouter basename="/BookSwap">
+      <HashRouter basename="/BookSwap">
         <Routes>
           <Route path="/" element={<AAth><DashBoard/></AAth>} />
           <Route path="/login" element={<Login/>} />
@@ -36,7 +36,7 @@ function App() {
           <Route path="/nearBy" element={<AAth><NearbyBooks /></AAth>} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </>
   )
 }
