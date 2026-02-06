@@ -14,7 +14,7 @@ module.exports.SendOtp = async (email, username, password, otp) => {
     from: process.env.Mail,
     to: email,
     subject: "BookSwap Verification Code",
-    text: "Here is your code: " + String(otp),
+    text: "Hello, \n As discussed, please find the requested code below.\nIf you have any questions or need further clarification, feel free to let me know.\nBest regards, " + String(otp),
   };
   
 
