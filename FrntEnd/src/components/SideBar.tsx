@@ -82,7 +82,12 @@ const SideBar=()=>{
                     My Books
                 </div>
             </button>
-            <button className="bg-gray-100  dark:bg-gray-950 flex items-center justify-start   cursor-pointer hover:bg-gray-200  dark:hover:bg-gray-900 rounded  w-full p-2 font-semibold">
+            <button
+                onClick={()=>{
+                localStorage.removeItem("token");
+                nav("/login");
+            }}
+                className="bg-gray-100  dark:bg-gray-950 flex items-center justify-start   cursor-pointer hover:bg-gray-200  dark:hover:bg-gray-900 rounded  w-full p-2 font-semibold">
                 <div className="w-[20%] h-full flex justify-center p-2 items-center">
                 <IoIosLogOut />
                 </div>
